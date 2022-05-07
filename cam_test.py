@@ -155,6 +155,6 @@ if __name__ == '__main__':
         if not os.path.exists(args.save_dir):
             os.makedirs(args.save_dir)
 
-        cv2.imwrite(os.path.join(args.save_dir,os.path.basename.replace(".jpg","")+'_cam.jpg'), cam_image)
-        cv2.imwrite(os.path.join(args.save_dir,os.path.basename.replace(".jpg","")+'_gb.jpg'), gb)
-        cv2.imwrite(os.path.join(args.save_dir,os.path.basename.replace(".jpg","")+'_cam_gb.jpg'), cam_gb)
+        cv2.imwrite(os.path.join(args.save_dir,os.path.basename(img_path).replace(".jpg","")+'_cam.jpg'), cam_image)
+        cv2.imwrite(os.path.join(args.save_dir,os.path.basename(img_path).replace(".jpg","")+'_gb.jpg'), gb)
+        cv2.imwrite(os.path.join(args.save_dir,os.path.basename(img_path).replace(".jpg","")+'_cam_gb.jpg'), cam_gb)
