@@ -119,7 +119,7 @@ if __name__ == '__main__':
                                reshape_transform=reshape_transform)
     img_paths = glob.glob(os.path.join(args.image_path,"*.jpg"))
     for img_path in img_paths:
-        rgb_img = cv2.imread(args.image_path, 1)[:, :, ::-1]
+        rgb_img = cv2.imread(img_path, 1)[:, :, ::-1]
         rgb_img = cv2.resize(rgb_img, (224, 224))
         rgb_img = np.float32(rgb_img) / 255
         
