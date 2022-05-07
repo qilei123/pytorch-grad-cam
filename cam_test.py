@@ -55,6 +55,10 @@ def get_args():
         '--save_dir',
         type=str)
 
+    parser.add_argument(
+        '--model_name',
+        type=str)
+
     args = parser.parse_args()
     args.use_cuda = args.use_cuda and torch.cuda.is_available()
     if args.use_cuda:
@@ -85,7 +89,7 @@ if __name__ == '__main__':
          "layercam": LayerCAM,
          "fullgrad": FullGrad}
 
-    model = timm.create_model('swin_base_patch4_window7_224', num_classes=2,
+    model = timm.create_model(args.model_name, num_classes=2,
                             in_chans=3, pretrained=False, checkpoint_path=args.pth_dir)
     model.eval()
 
