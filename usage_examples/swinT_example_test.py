@@ -8,6 +8,10 @@ from timm.data.transforms_factory import create_transform
 from PIL import Image
 import warnings
 warnings.filterwarnings("ignore")
+
+import os
+import glob
+
 from pytorch_grad_cam import GradCAM, \
     ScoreCAM, \
     GradCAMPlusPlus, \
@@ -49,6 +53,10 @@ def get_args():
         '--pth_dir',
         type=str)
     
+    parser.add_argument(
+        '--save_dir',
+        type=str)
+
     args = parser.parse_args()
     args.use_cuda = args.use_cuda and torch.cuda.is_available()
     if args.use_cuda:
@@ -109,33 +117,34 @@ if __name__ == '__main__':
                                target_layers=target_layers,
                                use_cuda=args.use_cuda,
                                reshape_transform=reshape_transform)
-    #print(args.image_path)
-    rgb_img = cv2.imread(args.image_path, 1)[:, :, ::-1]
-    rgb_img = cv2.resize(rgb_img, (224, 224))
-    rgb_img = np.float32(rgb_img) / 255
-    
-    input_tensor = preprocess_image(rgb_img, mean=[0.485, 0.456, 0.406],
-                                    std=[0.229, 0.224, 0.225])
-    '''
-    img = Image.open(args.image_path).convert('RGB')
-    input_tensor = transform(img).unsqueeze(0) # transform and add batch dimension
-    input_tensor = input_tensor.cuda()
-    '''
-    # If None, returns the map for the highest scoring category.
-    # Otherwise, targets the requested category.
-    targets = None
+    img_paths = glob.glob(os.path.join(args.image_path,"*.jpg"))
+    for img_path in img_paths:
+        rgb_img = cv2.imread(args.image_path, 1)[:, :, ::-1]
+        rgb_img = cv2.resize(rgb_img, (224, 224))
+        rgb_img = np.float32(rgb_img) / 255
+        
+        input_tensor = preprocess_image(rgb_img, mean=[0.485, 0.456, 0.406],
+                                        std=[0.229, 0.224, 0.225])
+        '''
+        img = Image.open(args.image_path).convert('RGB')
+        input_tensor = transform(img).unsqueeze(0) # transform and add batch dimension
+        input_tensor = input_tensor.cuda()
+        '''
+        # If None, returns the map for the highest scoring category.
+        # Otherwise, targets the requested category.
+        targets = None
 
-    # AblationCAM and ScoreCAM have batched implementations.
-    # You can override the internal batch size for faster computation.
-    cam.batch_size = 32
+        # AblationCAM and ScoreCAM have batched implementations.
+        # You can override the internal batch size for faster computation.
+        cam.batch_size = 32
 
-    grayscale_cam = cam(input_tensor=input_tensor,
-                        targets=targets,
-                        eigen_smooth=args.eigen_smooth,
-                        aug_smooth=args.aug_smooth)
+        grayscale_cam = cam(input_tensor=input_tensor,
+                            targets=targets,
+                            eigen_smooth=args.eigen_smooth,
+                            aug_smooth=args.aug_smooth)
 
-    # Here grayscale_cam has only one image in the batch
-    grayscale_cam = grayscale_cam[0, :]
+        # Here grayscale_cam has only one image in the batch
+        grayscale_cam = grayscale_cam[0, :]
 
-    cam_image = show_cam_on_image(rgb_img, grayscale_cam)
-    cv2.imwrite(f'temp/{args.method}_cam.jpg', cam_image)
+        cam_image = show_cam_on_image(rgb_img, grayscale_cam)
+        cv2.imwrite(os.path.join(), cam_image)
