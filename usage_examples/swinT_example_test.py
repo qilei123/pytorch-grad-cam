@@ -98,7 +98,7 @@ if __name__ == '__main__':
     if args.method not in list(methods.keys()):
         raise Exception(f"method should be one of {list(methods.keys())}")
 
-    model = timm.create_model('swin_base_patch4_window7_224', num_classes=2,
+    model = timm.create_model('resnext50_32x4d', num_classes=2,
                             in_chans=3, pretrained=False, checkpoint_path=args.pth_dir)
     model.eval()
 
