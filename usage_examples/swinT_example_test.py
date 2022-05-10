@@ -193,9 +193,7 @@ def main2():
 
     while record:
 
-        img_path = os.path.join("test",record[:-3])
-
-        print(img_path)
+        img_path = os.path.join(args.image_path,"test",record[:-3])
 
         gt_label = record[-2]
 
