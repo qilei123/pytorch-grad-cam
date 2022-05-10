@@ -230,9 +230,9 @@ def main2():
         cats = ["adenoma","none_adenoma"]
 
         if(np.argmax(outputs.cpu().data.numpy(), axis=-1)[0]==gt_label):
-            save_dir = os.path.join(args.save_dir,str(cats[gt_label])+"_right")
+            save_dir = os.path.join(args.save_dir,cats[int(gt_label)]+"_right")
         else:
-            save_dir = os.path.join(args.save_dir,str(cats[gt_label])+"_wrong")
+            save_dir = os.path.join(args.save_dir,cats[int(gt_label)]+"_wrong")
 
         if not os.path.exists(args.save_dir):
             os.makedirs(args.save_dir)
