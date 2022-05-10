@@ -232,7 +232,7 @@ def main2():
 
         if not os.path.exists(args.save_dir):
             os.makedirs(args.save_dir)
-        orig_img = cv2.imread(img_path, 1)[:, :, ::-1]
+        orig_img = cv2.imread(img_path)
         print(orig_img.shape)
         cam_image = cv2.resize(cam_image,orig_img.shape[:2])
         print(cam_image.shape)
