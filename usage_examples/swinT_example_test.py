@@ -234,15 +234,15 @@ def main2():
         else:
             save_dir = os.path.join(args.save_dir,cats[int(gt_label)]+"_wrong")
 
-        if not os.path.exists(args.save_dir):
-            os.makedirs(args.save_dir)
+        if not os.path.exists(save_dir):
+            os.makedirs(save_dir)
         orig_img = cv2.imread(img_path)
         #print(orig_img.shape)
         cam_image = cv2.resize(cam_image,(orig_img.shape[1],orig_img.shape[0]))
         #print(cam_image.shape)
         #im_h = cv2.vconcat([rgb_img, cam_image])
         im_h = np.concatenate((orig_img, cam_image), axis=1)
-        cv2.imwrite(os.path.join(args.save_dir,os.path.basename(img_path)), im_h)
+        cv2.imwrite(os.path.join(save_dir,os.path.basename(img_path)), im_h)
 
         record = img_record.readline()
 
