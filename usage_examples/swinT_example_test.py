@@ -221,7 +221,7 @@ def main2():
                             eigen_smooth=args.eigen_smooth,
                             aug_smooth=args.aug_smooth)
 
-        print(outputs)
+        print(np.argmax(outputs.cpu().data.numpy(), axis=-1))
 
         # Here grayscale_cam has only one image in the batch
         grayscale_cam = grayscale_cam[0, :]
