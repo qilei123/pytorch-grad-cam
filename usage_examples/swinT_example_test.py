@@ -57,6 +57,10 @@ def get_args():
         '--save_dir',
         type=str)
 
+    parser.add_argument(
+        '--model_name',
+        type=str)
+
     args = parser.parse_args()
     args.use_cuda = args.use_cuda and torch.cuda.is_available()
     if args.use_cuda:
@@ -93,7 +97,7 @@ def main1():
     if args.method not in list(methods.keys()):
         raise Exception(f"method should be one of {list(methods.keys())}")
 
-    model = timm.create_model('resnext50_32x4d', num_classes=2,
+    model = timm.create_model(args.model_name, num_classes=2,
                             in_chans=3, pretrained=False, checkpoint_path=args.pth_dir)
     model.eval()
 
@@ -162,7 +166,7 @@ def main2():
     if args.method not in list(methods.keys()):
         raise Exception(f"method should be one of {list(methods.keys())}")
 
-    model = timm.create_model('resnext50_32x4d', num_classes=2,
+    model = timm.create_model(args.model_name, num_classes=2,
                             in_chans=3, pretrained=False, checkpoint_path=args.pth_dir)
     model.eval()
 
