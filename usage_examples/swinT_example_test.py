@@ -185,7 +185,7 @@ def main2():
                                target_layers=target_layers,
                                use_cuda=args.use_cuda,
                                reshape_transform=reshape_transform)
-    img_paths = glob.glob(os.path.join(args.image_path,"*.jpg"))
+    #img_paths = glob.glob(os.path.join(args.image_path,"*.jpg"))
 
     img_record = open(os.path.join(args.image_path,"test.txt"))
 
@@ -194,6 +194,9 @@ def main2():
     while record:
 
         img_path = os.path.join("test",record[:-3])
+
+        print(img_path)
+
         gt_label = record[-2]
 
         rgb_img = cv2.imread(img_path, 1)[:, :, ::-1]
