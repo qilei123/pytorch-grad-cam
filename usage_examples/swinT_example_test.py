@@ -221,17 +221,20 @@ def main2():
                             eigen_smooth=args.eigen_smooth,
                             aug_smooth=args.aug_smooth)
 
-        print(np.argmax(outputs.cpu().data.numpy(), axis=-1)[0]==gt_label)
 
         # Here grayscale_cam has only one image in the batch
         grayscale_cam = grayscale_cam[0, :]
 
         cam_image = show_cam_on_image(rgb_img, grayscale_cam)
 
+        if(np.argmax(outputs.cpu().data.numpy(), axis=-1)[0]==gt_label):
+            pass
+
         if not os.path.exists(args.save_dir):
             os.makedirs(args.save_dir)
-
-        cv2.imwrite(os.path.join(args.save_dir,os.path.basename(img_path)), cam_image)
+        cam_image = cv2.resize(cam_image,rgb_img.shape[:2])
+        im_h = cv2.hconcat([rgb_img, cam_image])
+        cv2.imwrite(os.path.join(args.save_dir,os.path.basename(img_path)), im_h)
 
         record = img_record.readline()
 
