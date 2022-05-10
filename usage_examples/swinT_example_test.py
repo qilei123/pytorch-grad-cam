@@ -222,6 +222,10 @@ def main2():
         grayscale_cam = grayscale_cam[0, :]
 
         cam_image = show_cam_on_image(rgb_img, grayscale_cam)
+
+        if not os.path.exists(args.save_dir):
+            os.makedirs(args.save_dir)
+
         cv2.imwrite(os.path.join(args.save_dir,os.path.basename(img_path)), cam_image)
 
         record = img_record.readline()
