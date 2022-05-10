@@ -93,7 +93,7 @@ class BaseCAM:
         cam_per_layer = self.compute_cam_per_layer(input_tensor,
                                                    targets,
                                                    eigen_smooth)
-        return self.aggregate_multi_layers(cam_per_layer)
+        return self.aggregate_multi_layers(cam_per_layer), outputs
 
     def get_target_width_height(self,
                                 input_tensor: torch.Tensor) -> Tuple[int, int]:
