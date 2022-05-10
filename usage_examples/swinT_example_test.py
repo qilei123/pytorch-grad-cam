@@ -234,7 +234,7 @@ def main2():
             os.makedirs(args.save_dir)
         orig_img = cv2.imread(img_path)
         print(orig_img.shape)
-        cam_image = cv2.resize(cam_image,orig_img.shape[:2])
+        cam_image = cv2.resize(cam_image,(orig_img.shape[1],orig_img.shape[0]))
         print(cam_image.shape)
         #im_h = cv2.vconcat([rgb_img, cam_image])
         im_h = np.concatenate((orig_img, cam_image), axis=1)
