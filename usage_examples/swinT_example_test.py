@@ -236,7 +236,7 @@ def main2():
         #print(rgb_img.shape)
         #cam_image = cv2.resize(cam_image,rgb_img.shape[:2])
         #print(cam_image.shape)
-        im_h = cv2.hconcat([rgb_img, cam_image])
+        im_h = cv2.vconcat([rgb_img, cam_image])
         cv2.imwrite(os.path.join(args.save_dir,os.path.basename(img_path)), im_h)
 
         record = img_record.readline()
