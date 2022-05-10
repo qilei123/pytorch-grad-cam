@@ -236,8 +236,8 @@ def main2():
         print(orig_img.shape)
         cam_image = cv2.resize(cam_image,orig_img.shape[:2])
         print(orig_img.shape)
-        #im_h = cv2.vconcat([rgb_img, cam_image])
-        im_h = np.concatenate((orig_img, cam_image), axis=1)
+        im_h = cv2.vconcat([rgb_img, cam_image])
+        #im_h = np.concatenate((orig_img, cam_image), axis=1)
         cv2.imwrite(os.path.join(args.save_dir,os.path.basename(img_path)), im_h)
 
         record = img_record.readline()
