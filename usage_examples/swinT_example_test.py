@@ -195,7 +195,7 @@ def main2():
 
         img_path = os.path.join(args.image_path,"test",record[:-3])
 
-        gt_label = record[-2]
+        gt_label = float(record[-2])
 
         rgb_img = cv2.imread(img_path, 1)[:, :, ::-1]
         rgb_img = cv2.resize(rgb_img, (224, 224))
@@ -221,7 +221,7 @@ def main2():
                             eigen_smooth=args.eigen_smooth,
                             aug_smooth=args.aug_smooth)
 
-        print(np.argmax(outputs.cpu().data.numpy(), axis=-1))
+        print(np.argmax(outputs.cpu().data.numpy(), axis=-1)[0]==gt_label)
 
         # Here grayscale_cam has only one image in the batch
         grayscale_cam = grayscale_cam[0, :]
